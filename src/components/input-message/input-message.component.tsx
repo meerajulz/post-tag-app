@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import tagList from '../../constants/tag-list';
-import { MessageContainer, CustomTextarea } from './input-message.styles';
+import {
+  MessageContainer,
+  CustomMessage,
+  CustomTextarea,
+} from './input-message.styles';
 
 const InputMessage: React.FC = () => {
   const [inputText, setInputText] = useState<string>('');
@@ -37,12 +41,41 @@ const InputMessage: React.FC = () => {
     const withoutLastTag = parts.slice(0, -1).join('');
     const updatedText = `${withoutLastTag}#${tag} `;
     setInputText(updatedText);
+    setCurrentSuggestions([]);
     inputRef.current?.focus();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowDown') {
+      setSelectedIndex(
+        (prevIndex) => (prevIndex + 1) % currentSuggestions.length
+      );
+    } else if (e.key === 'ArrowUp') {
+      setSelectedIndex(
+        (prevIndex) =>
+          (prevIndex - 1 + currentSuggestions.length) %
+          currentSuggestions.length
+      );
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (currentSuggestions.length > 0) {
+        addTagToInput(currentSuggestions[selectedIndex]);
+      }
+    }
+  };
+
   return (
-    <div style={{ position: 'relative' }}>
-      <MessageContainer />
+    <MessageContainer onKeyDown={handleKeyDown}>
+      <CustomMessage>
+        {inputText.split(' ').map((part, index) => (
+          <span
+            key={index}
+            style={{ color: part.startsWith('#') ? '#1da1f2' : 'inherit' }}
+          >
+            {part}{' '}
+          </span>
+        ))}
+      </CustomMessage>
       <CustomTextarea
         onChange={handleInputChange}
         value={inputText}
@@ -68,7 +101,7 @@ const InputMessage: React.FC = () => {
           ))}
         </ul>
       )}
-    </div>
+    </MessageContainer>
   );
 };
 

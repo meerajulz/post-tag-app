@@ -10,7 +10,7 @@ function App() {
         <h1>Medical Report Auto-Complete</h1>
       </header>
       <div className="container mx-auto p-4">
-        <InputMessage />;
+        <InputMessage />
       </div>
     </main>
   );
