@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { StyledSpanProps } from '../../types/types';
+import theme from '../../styles/theme';
 
 export const StyledSpan = styled.span<StyledSpanProps>`
-  color: ${({ isHashtag }) => (isHashtag ? '#1da1f2' : 'inherit')};
+  color: ${({ isHashtag }) =>
+    isHashtag ? theme.colors.blue : theme.colors.inherit};
 `;
 
 export const MessageContainer = styled.div`
@@ -16,15 +18,15 @@ export const CustomMessage = styled.div`
   right: 0;
   bottom: 0;
   overflow: hidden;
-  color: #070707;
+  color: ${({ theme }) => theme.colors.black};
   pointer-events: none;
   white-space: pre-wrap;
   word-wrap: break-word;
   padding: 8px;
-  font-size: 16px;
-  line-height: 20px;
-  font-family: 'Arial', sans-serif;
-  border: 1px solid #ccc;
+  font-size: ${({ theme }) => theme.fontSize};
+  line-height: ${({ theme }) => theme.lineHeight};
+  font-family: ${({ theme }) => theme.fontFamily};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 6px;
 `;
 
@@ -32,13 +34,14 @@ export const CustomTextarea = styled.textarea`
   width: 100%;
   min-height: 100px;
   padding: 9px;
-  font-size: 16px;
-  line-height: 20px;
-  font-family: 'Arial', sans-serif;
+  font-size: ${({ theme }) => theme.fontSize};
+  line-height: ${({ theme }) => theme.lineHeight};
+  font-family: ${({ theme }) => theme.fontFamily};
   border: 0;
   resize: none;
-  color: #ccc;
-  font-weight: lighter;
+  color: ${({ theme }) => theme.colors.border};
+  font-weight: ${({ theme }) => theme.fontWeight};
+  letter-spacing: -0.666px;
   :focus-visible {
     outline: -webkit-focus-ring-color auto 0;
   }

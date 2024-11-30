@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../styles/theme';
 
 export const List = styled.ul`
   list-style-type: none;
@@ -7,6 +8,6 @@ export const List = styled.ul`
 
 export const ListItem = styled.li<{ isSelected: boolean }>`
   background-color: ${({ isSelected }) =>
-    isSelected ? '#eee' : 'transparent'};
+    isSelected ? theme.colors.blue : 'transparent'};
   cursor: pointer;
 `;

@@ -11,7 +11,6 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({
   if (suggestions.length === 0) {
     return null;
   }
-
   return (
     <List>
       {suggestions.map((suggestion, index) => (
