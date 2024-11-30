@@ -17,3 +17,15 @@ export const MessageContainer = styled.div`
   line-height: 20px;
   font-family: 'Arial', sans-serif;
 `;
+
+// Styled component for the custom textarea
+export const CustomTextarea = styled.textarea`
+  width: 100%;
+  min-height: 100px;
+  padding: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: 'Arial', sans-serif;
+  border: 0;
+  resize: none;
+`;
