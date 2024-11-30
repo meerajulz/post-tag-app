@@ -6,6 +6,7 @@ import {
   CustomMessage,
   CustomTextarea,
 } from './input-message.styles';
+import TagSuggestions from '../tag-suggestions/tag-suggestions.compoent';
 
 const InputMessage: React.FC = () => {
   const [inputText, setInputText] = useState<string>('');
@@ -84,23 +85,11 @@ const InputMessage: React.FC = () => {
       />
 
       {/* tag */}
-      {currentSuggestions.length > 0 && (
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {currentSuggestions.map((suggestion, index) => (
-            <li
-              key={index}
-              style={{
-                cursor: 'pointer',
-                backgroundColor:
-                  selectedIndex === index ? '#eee' : 'transparent',
-              }}
-              onClick={() => addTagToInput(suggestion)}
-            >
-              #{suggestion} {/* Display suggestion with '#' prefix */}
-            </li>
-          ))}
-        </ul>
-      )}
+      <TagSuggestions
+        suggestions={currentSuggestions}
+        selectedIndex={selectedIndex}
+        onSelectSuggestions={addTagToInput}
+      />
     </MessageContainer>
   );
 };
