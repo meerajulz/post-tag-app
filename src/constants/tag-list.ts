@@ -1,4 +1,6 @@
-const tagList = [
+export type TagListType = string;
+
+const tagList: TagListType[] = [
   'liver',
   'pain',
   'right',

@@ -1,11 +1,6 @@
 import React from 'react';
 import { List, ListItem } from './tag-suggestions.styles';
-
-interface TagSuggestionsProps {
-  suggestions: string[];
-  selectedIndex: number;
-  onSelectSuggestions: (suggestions: string) => void;
-}
+import { TagSuggestionsProps } from '../../types/types';
 
 const TagSuggestions: React.FC<TagSuggestionsProps> = ({
   suggestions,

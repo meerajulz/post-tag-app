@@ -1,10 +1,14 @@
 import styled from 'styled-components';
+import { StyledSpanProps } from '../../types/types';
+
+export const StyledSpan = styled.span<StyledSpanProps>`
+  color: ${({ isHashtag }) => (isHashtag ? '#1da1f2' : 'inherit')};
+`;
 
 export const MessageContainer = styled.div`
   position: relative;
 `;
 
-// Styled component for the message container
 export const CustomMessage = styled.div`
   position: absolute;
   top: 0;
@@ -24,7 +28,6 @@ export const CustomMessage = styled.div`
   border-radius: 6px;
 `;
 
-// Styled component for the custom textarea
 export const CustomTextarea = styled.textarea`
   width: 100%;
   min-height: 100px;

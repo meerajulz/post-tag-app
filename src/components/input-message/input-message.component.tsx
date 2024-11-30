@@ -1,48 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import tagList from '../../constants/tag-list';
+import useTagSuggestions from '../../hooks/useTagSuggestions';
+
 import {
   MessageContainer,
   CustomMessage,
   CustomTextarea,
+  StyledSpan,
 } from './input-message.styles';
 import TagSuggestions from '../tag-suggestions/tag-suggestions.compoent';
 
 const InputMessage: React.FC = () => {
   const [inputText, setInputText] = useState<string>('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [currentSuggestions, setCurrentSuggestions] = useState<string[]>([]);
 
-  useEffect(() => {
-    // Only filter out tags that start with '#' from input and adjust logic to match suggestions without '#'
-    const hashtagParts = inputText
-      .split(/(\s+)/)
-      .filter((t) => t.trim().length > 0 && t.trim().startsWith('#'));
-    const lastTag = hashtagParts.pop() || '';
-    const tagQuery = lastTag.slice(1); // Remove '#' for matching
-    if (tagQuery) {
-      const matchedSuggestions = tagList.filter(
-        (s) => s.startsWith(tagQuery) && `#${s}` !== lastTag
-      );
-      setCurrentSuggestions(matchedSuggestions);
-      setSelectedIndex(0);
-    } else {
-      setCurrentSuggestions([]);
-    }
-  }, [inputText]);
+  const { currentSuggestions, selectedIndex, setSelectedIndex } =
+    useTagSuggestions(inputText, tagList);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
   };
 
   const addTagToInput = (tag: string) => {
-    // Append '#' when adding a tag from suggestions
     const parts = inputText.split(/(\s+)/);
     const withoutLastTag = parts.slice(0, -1).join('');
-    const updatedText = `${withoutLastTag}#${tag} `;
-    setInputText(updatedText);
-    setCurrentSuggestions([]);
+    setInputText(`${withoutLastTag}#${tag} `);
     inputRef.current?.focus();
   };
 
@@ -69,12 +51,9 @@ const InputMessage: React.FC = () => {
     <MessageContainer onKeyDown={handleKeyDown}>
       <CustomMessage>
         {inputText.split(' ').map((part, index) => (
-          <span
-            key={index}
-            style={{ color: part.startsWith('#') ? '#1da1f2' : 'inherit' }}
-          >
+          <StyledSpan isHashtag={part.startsWith('#')} key={index}>
             {part}{' '}
-          </span>
+          </StyledSpan>
         ))}
       </CustomMessage>
       <CustomTextarea
@@ -84,7 +63,6 @@ const InputMessage: React.FC = () => {
         placeholder="What’s happening?"
       />
 
-      {/* tag */}
       <TagSuggestions
         suggestions={currentSuggestions}
         selectedIndex={selectedIndex}
