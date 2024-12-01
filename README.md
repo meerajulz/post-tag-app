@@ -34,27 +34,45 @@ To get the development environment running:
 
 2. Navigate to the project directory:
 
-`cd hashtag-suggestion-app`
+```sh
+  cd hashtag-suggestion-app`
+```
 
 3. Install project dependencies:
 
-`npm install`
+```sh
+  npm install
+```
 
 4.Start the development server
 
-`npm start`
+```sh
+  npm start
+```
+
+5. Run the tests using the following command
+
+```sh
+  npm test
+```
 
 This will run the app in the development mode. Open http://localhost:3000 to view it in the browser.
 
 ## Built With
 
 - **[React](https://reactjs.org/)** - The web framework used for building user interfaces.
+
 - **[Styled-Components](https://styled-components.com/)** - For styling React components using enhanced CSS.
+
 - **[Node.js](https://nodejs.org/)** - The server environment that runs JavaScript on the server side.
+
+- **[Jest](https://jestjs.io/)** - A delightful JavaScript Testing Framework with a focus on simplicity.
+
+- **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)** - Builds on top of DOM Testing Library by adding APIs for working with React components.
 
 ## Authors
 
-Juliana Leon **[git meerajulz](https://github.com/meerajulz/)**
+Juliana Leon **[gitHub meerajulz](https://github.com/meerajulz/)**
 
 License
 This project is licensed under the MIT License
