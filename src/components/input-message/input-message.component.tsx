@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import tagList from '../../constants/tag-list';
 import useTagSuggestions from '../../hooks/useTagSuggestions';
 
@@ -50,11 +50,19 @@ const InputMessage: React.FC = () => {
   return (
     <MessageContainer onKeyDown={handleKeyDown}>
       <CustomMessage>
-        {inputText.split(' ').map((part, index) => (
-          <StyledSpan isHashtag={part.startsWith('#')} key={index}>
-            {part}{' '}
-          </StyledSpan>
-        ))}
+        {inputText.split(' ').map((part, index) => {
+          const isHashtag = part.startsWith('#');
+          const isRecognized = isHashtag && tagList.includes(part.slice(1));
+          return (
+            <StyledSpan
+              isHashtag={isHashtag}
+              isRecognized={isRecognized}
+              key={index}
+            >
+              {part}{' '}
+            </StyledSpan>
+          );
+        })}
       </CustomMessage>
       <CustomTextarea
         onChange={handleInputChange}

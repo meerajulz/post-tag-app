@@ -3,16 +3,16 @@ const theme = {
     primary: '#1da1f2',
     text: '#ccc',
     black: '#070707',
-    selection: '##eee',
+    selection: '#eee',
     blue: '#1da1f2',
+    green: '#4EB840',
     border: '#ccc',
     inherit: 'inherit',
   },
-  fontSize: '1.2em',
+  fontSize: '20px',
   lineHeight: '20px',
   fontWeight: '100',
-  letterSpacing: '0.02em',
-  fontFamily: 'Helvetica, sans-serif',
+  fontFamily: 'Arial, sans-serif',
 };
 
 export default theme;

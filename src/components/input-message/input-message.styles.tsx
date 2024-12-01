@@ -1,10 +1,15 @@
 import styled from 'styled-components';
-import { StyledSpanProps } from '../../types/types';
-import theme from '../../styles/theme';
 
-export const StyledSpan = styled.span<StyledSpanProps>`
-  color: ${({ isHashtag }) =>
-    isHashtag ? theme.colors.blue : theme.colors.inherit};
+export const StyledSpan = styled.span<{
+  isHashtag: boolean;
+  isRecognized: boolean;
+}>`
+  color: ${({ isHashtag, isRecognized, theme }) =>
+    isHashtag
+      ? isRecognized
+        ? theme.colors.primary
+        : theme.colors.green
+      : 'inherit'};
 `;
 
 export const MessageContainer = styled.div`
@@ -41,7 +46,7 @@ export const CustomTextarea = styled.textarea`
   resize: none;
   color: ${({ theme }) => theme.colors.border};
   font-weight: ${({ theme }) => theme.fontWeight};
-  letter-spacing: -0.666px;
+
   :focus-visible {
     outline: -webkit-focus-ring-color auto 0;
   }
