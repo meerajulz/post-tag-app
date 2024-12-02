@@ -10,28 +10,33 @@ jest.mock('../../constants/tag-list', () => ['liver', 'pain', 'right']);
 describe('CustomMessage in TextInput', () => {
   const inputText = 'This is a #liver and this is not a hashtag #example';
 
-  it('renders text and hashtags correctly', () => {
+  const setup = (inputValue = '') => {
     render(
       <ThemeProvider theme={theme}>
         <InputMessage />
       </ThemeProvider>
     );
-    // Expect that the normal text is rendered
-    // Simulate user typing into the textarea
-    const textArea = screen.getByPlaceholderText('What’s happening?');
-    fireEvent.change(textArea, { target: { value: inputText } });
+    const textArea = screen.getByPlaceholderText(
+      'What’s happening?'
+    ) as HTMLTextAreaElement;
+    if (inputValue) {
+      fireEvent.change(textArea, { target: { value: inputValue } });
+    }
+    return textArea;
+  };
 
-    // Now check if the hashtags and text are rendered correctly
+  it('renders text and hashtags correctly', () => {
+    const textArea = setup(inputText);
     expect(textArea).toBeInTheDocument();
+    expect(screen.getByText('#liver')).toBeInTheDocument();
+
+    fireEvent.change(textArea, { target: { value: inputText } });
     expect(screen.getByText('#liver')).toBeInTheDocument();
   });
 
   it('does not show suggestions when there are no hashtags', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <InputMessage />
-      </ThemeProvider>
-    );
+    setup('Hello world');
+    expect(screen.queryByText('TagSuggestions')).toBeNull();
 
     const textArea = screen.getByPlaceholderText('What’s happening?');
     fireEvent.change(textArea, { target: { value: 'Hello world' } });
@@ -40,11 +45,7 @@ describe('CustomMessage in TextInput', () => {
   });
 
   it('styles hashtags correctly based on whether they are recognized', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <InputMessage />
-      </ThemeProvider>
-    );
+    setup('This is a #liver and this is not a hashtag #example');
 
     const textArea = screen.getByPlaceholderText('What’s happening?');
     fireEvent.change(textArea, { target: { value: inputText } });
@@ -59,16 +60,7 @@ describe('CustomMessage in TextInput', () => {
   });
 
   it('handles keyboard navigation and selection correctly', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <InputMessage />
-      </ThemeProvider>
-    );
-
-    const textArea = screen.getByPlaceholderText(
-      'What’s happening?'
-    ) as HTMLTextAreaElement;
-    fireEvent.change(textArea, { target: { value: '#pa' } }); // Trigger suggestions
+    const textArea = setup('#pa');
 
     // Simulate key down to select the first suggestion
     fireEvent.keyDown(textArea, { key: 'ArrowDown' });
@@ -79,11 +71,7 @@ describe('CustomMessage in TextInput', () => {
   });
 
   it('does not show suggestions when there are no hashtags', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <InputMessage />
-      </ThemeProvider>
-    );
+    setup('Hello world');
 
     const textArea = screen.getByPlaceholderText('What’s happening?');
     fireEvent.change(textArea, { target: { value: 'Hello world' } });
