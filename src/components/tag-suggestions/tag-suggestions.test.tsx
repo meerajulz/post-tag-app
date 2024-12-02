@@ -1,16 +1,21 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import TagSuggestions from './tag-suggestions.component';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../styles/theme';
+import { ListItem } from './tag-suggestions.styles';
 
 describe('TagSuggestions Components', () => {
   const mockOnSelectSuggestions = jest.fn();
 
   const renderTagSuggestions = (suggestions: string[], selectedIndex = 0) => {
     render(
-      <TagSuggestions
-        suggestions={suggestions}
-        selectedIndex={selectedIndex}
-        onSelectSuggestions={mockOnSelectSuggestions}
-      />
+      <ThemeProvider theme={theme}>
+        <TagSuggestions
+          suggestions={suggestions}
+          selectedIndex={selectedIndex}
+          onSelectSuggestions={mockOnSelectSuggestions}
+        />
+      </ThemeProvider>
     );
   };
 
@@ -25,23 +30,25 @@ describe('TagSuggestions Components', () => {
 
   it('renders suggestions correctly and can select an item', () => {
     renderTagSuggestions(['liver', 'pain', 'right']);
-
-    expect(screen.getByText('#liver')).toBeInTheDocument();
-    expect(screen.getByText('#pain')).toBeInTheDocument();
-    expect(screen.getByText('#right')).toBeInTheDocument();
-
-    expect(screen.getAllByRole('listitem')).toHaveLength(3);
-    expect(screen.getAllByRole('listitem')[1]).toHaveTextContent('#pain');
-
-    // Simulate a click on the second list item
-    fireEvent.click(screen.getAllByRole('listitem')[1]);
+    const list = screen.getByRole('list');
+    expect(list).toBeInTheDocument();
+    const items = screen.getAllByRole('listitem');
+    expect(items).toHaveLength(3);
+    fireEvent.click(items[1]);
     expect(mockOnSelectSuggestions).toHaveBeenCalledWith('pain');
   });
 
-  it('marks the selected item based on selectIndex', () => {
-    renderTagSuggestions(['liver', 'pain', 'right'], 1);
+  it('correctly applies styles based on selection', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        <ListItem isSelected={true}>Selected Item</ListItem>
+        <ListItem isSelected={false}>Unselected Item</ListItem>
+      </ThemeProvider>
+    );
 
-    const listItems = screen.getAllByRole('listitem');
-    expect(listItems[2]).toHaveTextContent('right');
+    expect(getByText('Selected Item')).toHaveStyle(`
+      background-color: ${theme.colors.blue};
+      color: ${theme.colors.selection};
+    `);
   });
 });

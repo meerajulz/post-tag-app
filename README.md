@@ -56,6 +56,12 @@ To get the development environment running:
   npm test
 ```
 
+6. Run coverage tests using the following command
+
+```sh
+  npm test -- --coverage
+```
+
 This will run the app in the development mode. Open http://localhost:3000 to view it in the browser.
 
 ## Built With
