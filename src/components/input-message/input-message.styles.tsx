@@ -1,17 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledSpan = styled.span<{
-  isHashtag: boolean;
-  isRecognized: boolean;
-}>`
-  color: ${({ isHashtag, isRecognized, theme }) =>
-    isHashtag
-      ? isRecognized
-        ? theme.colors.primary
-        : theme.colors.green
-      : 'inherit'};
-`;
-
 export const MessageContainer = styled.div`
   position: relative;
 `;

@@ -6,7 +6,6 @@ import {
   MessageContainer,
   CustomMessage,
   CustomTextarea,
-  StyledSpan,
 } from './input-message.styles';
 import TagSuggestions from '../tag-suggestions/tag-suggestions.compoent';
 
@@ -48,19 +47,23 @@ const InputMessage: React.FC = () => {
   };
 
   return (
-    <MessageContainer onKeyDown={handleKeyDown}>
+    <MessageContainer onKeyDown={handleKeyDown} data-testid="message-container">
       <CustomMessage>
         {inputText.split(' ').map((part, index) => {
           const isHashtag = part.startsWith('#');
           const isRecognized = isHashtag && tagList.includes(part.slice(1));
+          const spanStyle = {
+            color: isHashtag
+              ? isRecognized
+                ? '#1da1f2'
+                : '#4EB840'
+              : 'inherit',
+          };
+
           return (
-            <StyledSpan
-              isHashtag={isHashtag}
-              isRecognized={isRecognized}
-              key={index}
-            >
+            <span style={spanStyle} key={index}>
               {part}{' '}
-            </StyledSpan>
+            </span>
           );
         })}
       </CustomMessage>
