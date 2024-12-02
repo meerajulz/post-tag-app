@@ -1,6 +1,5 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import TagSuggestions from './tag-suggestions.compoent';
+import TagSuggestions from './tag-suggestions.component';
 
 describe('TagSuggestions Components', () => {
   const mockOnSelectSuggestions = jest.fn();

@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import tagList from '../../constants/tag-list';
-import useTagSuggestions from '../../hooks/useTagSuggestions';
+import useTagSuggestions from '../../hooks/use-tag-suggestions';
 
 import {
   MessageContainer,
   CustomMessage,
   CustomTextarea,
 } from './input-message.styles';
-import TagSuggestions from '../tag-suggestions/tag-suggestions.compoent';
+import TagSuggestions from '../tag-suggestions/tag-suggestions.component';
 
 const InputMessage: React.FC = () => {
   const [inputText, setInputText] = useState<string>('');
