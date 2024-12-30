@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component matches snapshot 1`] = `
+<DocumentFragment>
+  <main
+    class="container mx-auto p-4"
+  >
+    <header
+      class="App-header"
+    >
+      <h1>
+        Medical Report Auto-Complete
+      </h1>
+    </header>
+    <div
+      class="container mx-auto p-4"
+    >
+      <div
+        class="sc-blHHSb ktMXbQ"
+        data-testid="message-container"
+      >
+        <div
+          class="sc-gtLWhw gGrQjy"
+        >
+          <span>
+             
+          </span>
+        </div>
+        <textarea
+          class="sc-egkSDF yhvOw"
+          placeholder="What’s happening?"
+        />
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;
